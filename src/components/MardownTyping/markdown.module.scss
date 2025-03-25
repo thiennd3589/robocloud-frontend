@@ -1,0 +1,278 @@
+.markdown {
+  max-width: unset;
+}
+
+.markdown.streaming-animation.block-entry-animation pre,
+.markdown.streaming-animation.block-entry-animation table {
+  overflow: hidden !important;
+  overflow: clip !important;
+  position: relative;
+}
+
+.markdown.streaming-animation.block-entry-animation pre:after,
+.markdown.streaming-animation.block-entry-animation table:after {
+  --overlap-distance: 10px;
+  --overlap-negative-distance: -10px;
+  content: "";
+  display: flex;
+  height: calc(100% + var(--overlap-distance) * 2);
+  inset: 0;
+  position: absolute;
+  translate: 0 var(--streaming-reveal-amount, var(--overlap-negative-distance));
+}
+
+[dir="ltr"] .markdown.streaming-animation.block-entry-animation pre:after,
+[dir="ltr"] .markdown.streaming-animation.block-entry-animation table:after {
+  background-image: linear-gradient(
+    180deg,
+    transparent,
+    var(--main-surface-primary) var(--overlap-distance)
+  );
+}
+
+[dir="rtl"] .markdown.streaming-animation.block-entry-animation pre:after,
+[dir="rtl"] .markdown.streaming-animation.block-entry-animation table:after {
+  background-image: linear-gradient(
+    -180deg,
+    transparent,
+    var(--main-surface-primary) var(--overlap-distance)
+  );
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .markdown.streaming-animation.block-entry-animation pre:after,
+  .markdown.streaming-animation.block-entry-animation table:after {
+    transition: 0.5s translate var(--spring-standard);
+  }
+}
+
+.markdown.streaming-animation h1,
+.markdown.streaming-animation h2,
+.markdown.streaming-animation h3,
+.markdown.streaming-animation h4,
+.markdown.streaming-animation h5,
+.markdown.streaming-animation h6,
+.markdown.streaming-animation li:not(:has(pre)) {
+  width: fit-content;
+}
+
+.markdown pre {
+  margin-top: 0.5rem;
+}
+
+.markdown pre:first-child {
+  margin-top: 0;
+}
+
+.markdown h1 {
+  font-weight: 700;
+  letter-spacing: -0.04rem;
+}
+
+.markdown h1:first-child {
+  margin-top: 0;
+}
+
+.markdown h2 {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+.markdown h2:first-child {
+  margin-top: 0;
+}
+
+.markdown h3 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+}
+
+.markdown h3:first-child {
+  margin-top: 0;
+}
+
+.markdown h4 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  margin-top: 1rem;
+}
+
+.markdown h4:first-child {
+  margin-top: 0;
+}
+
+.markdown h5 {
+  font-weight: 600;
+}
+
+.markdown h5:first-child {
+  margin-top: 0;
+}
+
+.markdown blockquote {
+  --tw-border-opacity: 1;
+  border-color: rgb(155 155 155 / var(--tw-border-opacity));
+  line-height: 1.5rem;
+  margin: 0;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+[dir="ltr"] .markdown blockquote {
+  border-left-width: 2px;
+  padding-left: 1rem;
+}
+
+[dir="rtl"] .markdown blockquote {
+  border-right-width: 2px;
+  padding-right: 1rem;
+}
+
+.markdown blockquote > p {
+  margin: 0;
+}
+
+.markdown blockquote > p:after,
+.markdown blockquote > p:before {
+  display: none;
+}
+
+.markdown table {
+  --tw-border-spacing-x: 0px;
+  --tw-border-spacing-y: 0px;
+  border-collapse: separate;
+  border-spacing: var(--tw-border-spacing-x) var(--tw-border-spacing-y);
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+  width: 100%;
+}
+
+.markdown p {
+  margin-bottom: 0.5rem;
+}
+
+.markdown p:not(:first-child) {
+  margin-top: 0.5rem;
+}
+
+.markdown p + :where(ol, ul) {
+  margin-top: 0;
+}
+
+.markdown :where(ol, ul) > li > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown :where(ol, ul) > li > :first-child {
+  margin-bottom: 0;
+  margin-top: 0;
+}
+
+.markdown th {
+  background-color: var(--border-light);
+  border-bottom-width: 1px;
+  border-color: var(--border-medium);
+  border-top-width: 1px;
+  padding: 0.25rem 0.75rem;
+}
+
+[dir="ltr"] .markdown th {
+  border-left-width: 1px;
+}
+
+[dir="rtl"] .markdown th {
+  border-right-width: 1px;
+}
+
+[dir="ltr"] .markdown th:first-child {
+  border-top-left-radius: 0.375rem;
+  padding-left: 0.75rem;
+}
+
+[dir="rtl"] .markdown th:first-child {
+  border-top-right-radius: 0.375rem;
+  padding-right: 0.75rem;
+}
+
+[dir="ltr"] .markdown th:last-child {
+  border-right-width: 1px;
+  border-top-right-radius: 0.375rem;
+  padding-right: 0.75rem;
+}
+
+[dir="rtl"] .markdown th:last-child {
+  border-left-width: 1px;
+  border-top-left-radius: 0.375rem;
+  padding-left: 0.75rem;
+}
+
+.markdown td {
+  border-bottom-width: 1px;
+  border-color: var(--border-medium);
+  padding: 0.25rem 0.75rem;
+}
+
+[dir="ltr"] .markdown td {
+  border-left-width: 1px;
+}
+
+[dir="rtl"] .markdown td {
+  border-right-width: 1px;
+}
+
+[dir="ltr"] .markdown td:first-child {
+  padding-left: 0.75rem;
+}
+
+[dir="rtl"] .markdown td:first-child {
+  padding-right: 0.75rem;
+}
+
+[dir="ltr"] .markdown td:last-child {
+  border-right-width: 1px;
+  padding-right: 0.75rem;
+}
+
+[dir="rtl"] .markdown td:last-child {
+  border-left-width: 1px;
+  padding-left: 0.75rem;
+}
+
+[dir="ltr"] .markdown tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 0.375rem;
+}
+
+[dir="rtl"] .markdown tbody tr:last-child td:first-child {
+  border-bottom-right-radius: 0.375rem;
+}
+
+[dir="ltr"] .markdown tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 0.375rem;
+}
+
+[dir="rtl"] .markdown tbody tr:last-child td:last-child {
+  border-bottom-left-radius: 0.375rem;
+}
+
+.markdown a {
+  color: var(--link);
+  font-weight: 400;
+  text-decoration-line: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .markdown a:hover {
+    color: var(--link-hover);
+  }
+}
+
+.gizmo .markdown > :not(pre),
+.gizmo .markdown > :not(pre) > :not(a) {
+  color: var(--text-primary);
+}
+
+.markdown .float-image + p {
+  margin-top: 0;
+}
