@@ -1,12 +1,35 @@
-import SendInput from "./components/SendInput";
-import ChatFrame from "./pages/home/components/ChatFrame";
+import { Route, Routes } from "react-router";
+import Home from "./pages/home";
+import MainLayout from "./layout/main-layout";
+import AuthProvider from "./auth/provider";
+import { ConfigProvider, notification, theme } from "antd";
+import NotificationProvider from "./notification/provider";
 
 function App() {
+  const [_api, contextHolder] = notification.useNotification();
+
   return (
-    <div className="flex flex-col h-screen bg-gray-900 text-white">
-      <ChatFrame />
-      <SendInput />
-    </div>
+    <ConfigProvider
+      theme={{
+        algorithm: theme.darkAlgorithm,
+        components: {
+          Button: {
+            lineHeight: 1.265,
+          },
+        },
+      }}
+    >
+      <NotificationProvider>
+        <AuthProvider>
+          <MainLayout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+            </Routes>
+            {contextHolder}
+          </MainLayout>
+        </AuthProvider>
+      </NotificationProvider>
+    </ConfigProvider>
   );
 }
 

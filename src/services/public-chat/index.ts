@@ -5,7 +5,9 @@ import { Chat } from "../../types/chat";
 // Define a service using a base URL and expected endpoints
 export const publicChatApi = createApi({
   reducerPath: "publicChat",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/api/chat" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: `${import.meta.env.VITE_BASE_API_URL}/chat`,
+  }),
   tagTypes: ["Chat"],
   endpoints: (builder) => ({
     getPublicChat: builder.query<Array<Chat>, undefined>({
