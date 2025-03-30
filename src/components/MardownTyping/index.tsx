@@ -5,7 +5,7 @@ import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import cls from "classnames";
 import styles from "./markdown.module.scss";
 
-const TypingMarkdown = ({ markdownText = "", _typingSpeed = 0.1 }) => {
+const TypingMarkdown = ({ markdownText = "" }) => {
   // const [visibleLength, setVisibleLength] = useState(0);
 
   // useEffect(() => {

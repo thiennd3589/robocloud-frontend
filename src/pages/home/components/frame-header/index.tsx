@@ -6,6 +6,7 @@ import { PicLeftOutlined } from "@ant-design/icons";
 import UserAvatar from "../../../../components/user-avatar";
 import { useIsAuthenticated } from "../../../../auth/hooks/use-is-authenticated";
 import SelectUsbPort from "../../../../components/select-usb-port";
+import logo from "../../../../assets/logo-white.png";
 
 const FrameHeader = () => {
   const { collapsed, setCollapsed } = useContext(LayoutContext);
@@ -22,6 +23,9 @@ const FrameHeader = () => {
             <PicLeftOutlined />
           </div>
         )}
+        <div className="w-18 h-18">
+          <img src={logo} className="w-full h-full" />
+        </div>
         <h1>{selectedConversation?.title ?? "Đoạn chat mới"}</h1>
       </div>
       <div className={styles["action"]}>

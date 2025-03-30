@@ -16,7 +16,7 @@ const SelectUsbPort = () => {
 
   return (
     <div className="flex gap-1.5">
-      {allowPorts.length && (
+      {allowPorts.length > 0 && (
         <Select
           style={{ width: 200 }}
           notFoundContent={<NotFoundPort />}
