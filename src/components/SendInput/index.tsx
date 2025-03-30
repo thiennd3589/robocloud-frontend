@@ -1,43 +1,26 @@
-import { useState } from "react";
-import { useAppDispatch } from "../../redux/hooks";
-import { publicChatApi, useAddChatMutation } from "../../services/public-chat";
-import { ChatRole } from "../../types/chat";
+import { useContext, useState } from "react";
+import ConversationContext from "../../conversation/context";
+import { useHandleSendMessage } from "../../hooks/chat/use-handle-send-message";
+import { useIsAuthenticated } from "../../auth/hooks/use-is-authenticated";
+import { useCreateConversation } from "../../hooks/conversation/use-create-conversation";
+import LayoutContext from "../../layout/main-layout/context";
 
 const SendInput = () => {
+  const { selectedConversation } = useContext(ConversationContext);
+  const { chatRef } = useContext(LayoutContext);
+  const isAuthenticated = useIsAuthenticated();
   const [inputValue, setInputValue] = useState("");
-  const dispatch = useAppDispatch();
-  const [addChat] = useAddChatMutation();
+  const handleSendMessage = useHandleSendMessage();
+  const createConversation = useCreateConversation();
 
-  const handleSendMessage = async () => {
-    if (inputValue.trim()) {
-      dispatch(
-        publicChatApi.util.updateQueryData(
-          "getPublicChat",
-          undefined,
-          (chats) => {
-            chats.push({
-              content: {
-                parts: [{ text: inputValue }],
-              },
-              role: ChatRole.USER,
-            });
-          }
-        )
-      );
-      const { data } = await addChat({ input: inputValue });
-
-      if (data) {
-        dispatch(
-          publicChatApi.util.updateQueryData(
-            "getPublicChat",
-            undefined,
-            (chats) => {
-              data.forEach((item) => chats.push(item));
-            }
-          )
-        );
-      }
+  const onSubmit = async () => {
+    chatRef.current?.scrollIntoView();
+    if (isAuthenticated && !selectedConversation.id) {
+      await createConversation(inputValue, inputValue);
+    } else {
+      await handleSendMessage(inputValue, selectedConversation.id);
     }
+    setInputValue("");
   };
 
   return (
@@ -47,12 +30,12 @@ const SendInput = () => {
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && handleSendMessage()}
+          onKeyDown={(e) => e.key === "Enter" && onSubmit()}
           className="flex-1 p-2 bg-gray-800 text-white rounded-l-lg focus:outline-none"
           placeholder="Type a message..."
         />
         <button
-          onClick={handleSendMessage}
+          onClick={onSubmit}
           className="p-2 bg-blue-600 text-white rounded-r-lg hover:bg-blue-700 focus:outline-none"
         >
           Send

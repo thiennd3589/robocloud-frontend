@@ -1,6 +1,7 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Chat } from "../../types/chat";
+import { RequestMethod } from "../../types/request";
 
 // Define a service using a base URL and expected endpoints
 export const publicChatApi = createApi({
@@ -14,10 +15,10 @@ export const publicChatApi = createApi({
       query: () => ({ url: "/public" }),
       transformResponse: (res: { data: Array<Chat> }) => res.data,
     }),
-    addChat: builder.mutation<Array<Chat>, { input: string }>({
+    addPublicChat: builder.mutation<Array<Chat>, { input: string }>({
       query: (body) => ({
         url: "/public",
-        method: "POST",
+        method: RequestMethod.POST,
         body,
       }),
     }),
@@ -26,4 +27,8 @@ export const publicChatApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetPublicChatQuery, useAddChatMutation } = publicChatApi;
+export const {
+  useGetPublicChatQuery,
+  useAddPublicChatMutation,
+  useLazyGetPublicChatQuery,
+} = publicChatApi;

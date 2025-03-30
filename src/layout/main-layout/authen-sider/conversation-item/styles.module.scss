@@ -1,0 +1,15 @@
+.conversation-item {
+  font-size: 14px;
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+  padding: 10px 5px;
+  border-radius: 25px;
+  &:hover {
+    background-color: rgba(162, 169, 176, 0.1);
+  }
+
+  &.active {
+    background-color: rgba(162, 169, 176, 0.1);
+  }
+}

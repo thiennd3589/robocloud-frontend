@@ -1,26 +1,26 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
 import cls from "classnames";
 import styles from "./markdown.module.scss";
 
-const TypingMarkdown = ({ markdownText = "", typingSpeed = 1 }) => {
-  const [visibleLength, setVisibleLength] = useState(0);
+const TypingMarkdown = ({ markdownText = "", _typingSpeed = 0.1 }) => {
+  // const [visibleLength, setVisibleLength] = useState(0);
 
-  useEffect(() => {
-    let index = 0;
-    const interval = setInterval(() => {
-      if (index <= markdownText.length) {
-        setVisibleLength(index);
-        index++;
-      } else {
-        clearInterval(interval);
-      }
-    }, typingSpeed);
+  // useEffect(() => {
+  //   let index = 0;
+  //   const interval = setInterval(() => {
+  //     if (index <= markdownText.length) {
+  //       setVisibleLength(index);
+  //       index++;
+  //     } else {
+  //       clearInterval(interval);
+  //     }
+  //   }, typingSpeed);
 
-    return () => clearInterval(interval);
-  }, [markdownText, typingSpeed]);
+  //   return () => clearInterval(interval);
+  // }, [markdownText, typingSpeed]);
 
   return (
     <div
@@ -55,7 +55,8 @@ const TypingMarkdown = ({ markdownText = "", typingSpeed = 1 }) => {
           },
         }}
       >
-        {markdownText.substring(0, visibleLength)}
+        {/* {markdownText.substring(0, visibleLength)} */}
+        {markdownText}
       </ReactMarkdown>
     </div>
   );

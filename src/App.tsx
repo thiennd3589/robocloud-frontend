@@ -4,6 +4,7 @@ import MainLayout from "./layout/main-layout";
 import AuthProvider from "./auth/provider";
 import { ConfigProvider, notification, theme } from "antd";
 import NotificationProvider from "./notification/provider";
+import ConversationProvider from "./conversation/provider";
 
 function App() {
   const [_api, contextHolder] = notification.useNotification();
@@ -21,12 +22,14 @@ function App() {
     >
       <NotificationProvider>
         <AuthProvider>
-          <MainLayout>
-            <Routes>
-              <Route path="/" element={<Home />} />
-            </Routes>
-            {contextHolder}
-          </MainLayout>
+          <ConversationProvider>
+            <MainLayout>
+              <Routes>
+                <Route path="/" element={<Home />} />
+              </Routes>
+              {contextHolder}
+            </MainLayout>
+          </ConversationProvider>
         </AuthProvider>
       </NotificationProvider>
     </ConfigProvider>

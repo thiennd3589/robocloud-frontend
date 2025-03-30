@@ -4,6 +4,7 @@ export enum ChatRole {
 }
 
 export type Chat = {
+  id?: string;
   content: {
     parts: Array<{
       text: string;

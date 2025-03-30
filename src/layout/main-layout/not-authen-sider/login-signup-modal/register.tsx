@@ -31,7 +31,6 @@ const RegisterPopup = ({
         onSwitchToLogin();
       },
       () => {
-        console.log("oke");
         notification?.error({
           message: "Registration Failed",
         });

@@ -1,0 +1,14 @@
+.sider-header {
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+
+  .icon {
+    padding: 3px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(162, 169, 176, 0.1);
+    }
+  }
+}

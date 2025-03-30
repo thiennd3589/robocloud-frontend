@@ -1,7 +1,10 @@
-import { useAuth } from "./use-auth";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 export const useIsAuthenticated = () => {
-  const { isAuthenticated } = useAuth();
+  const { accessToken, currentUser } = useSelector(
+    (state: RootState) => state.auth
+  );
 
-  return isAuthenticated;
+  return accessToken && currentUser;
 };

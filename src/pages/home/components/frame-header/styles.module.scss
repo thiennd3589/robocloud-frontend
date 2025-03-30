@@ -1,0 +1,27 @@
+.frame-header {
+  padding: 16px;
+  border-bottom: 1px solid #364153;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .action {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    h1 {
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    .toggle-icon {
+      font-size: 24px;
+      padding: 3px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      &:hover {
+        background-color: rgba(162, 169, 176, 0.1);
+      }
+    }
+  }
+}

@@ -1,12 +1,12 @@
-import { useAuth } from "./use-auth";
+import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
+import { setAccessToken, setCurrentUser } from "../../redux/redux-auth";
 export const useLoginSuccess = () => {
-  const { setAuthenticated, setCurrentUser } = useAuth();
-
+  const dispatch = useDispatch();
   return (accessToken: string, currentUser: any) => {
     Cookies.set("accessToken", accessToken);
     Cookies.set("currentUser", JSON.stringify(currentUser));
-    setAuthenticated(true);
-    setCurrentUser(currentUser);
+    dispatch(setAccessToken(accessToken));
+    dispatch(setCurrentUser(currentUser));
   };
 };
