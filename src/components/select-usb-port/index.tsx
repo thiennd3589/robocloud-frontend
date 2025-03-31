@@ -1,11 +1,12 @@
 import { Select } from "antd";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import NotFoundPort from "./not-found-port";
 import AddPortButton from "./select-button";
+import { USBPortContext } from "../../usb-port/context";
 
 const SelectUsbPort = () => {
   const [allowPorts, setAllowPorts] = useState<any[]>([]);
-
+  const { setPort } = useContext(USBPortContext);
   useEffect(() => {
     if ("serial" in navigator) {
       (navigator.serial as any)
@@ -23,7 +24,10 @@ const SelectUsbPort = () => {
           options={allowPorts.map((port, index) => ({
             value: index,
             label: (
-              <div className="flex justify-between">
+              <div
+                className="flex justify-between"
+                onClick={() => setPort(port)}
+              >
                 <span>{port.getInfo()?.usbProductId || `Cổng ${index}`}</span>
               </div>
             ),

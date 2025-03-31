@@ -23,42 +23,41 @@ const TypingMarkdown = ({ markdownText = "" }) => {
   // }, [markdownText, typingSpeed]);
 
   return (
-    <div
-      className={cls("w-[70vw] prose prose-invert", styles.markdown)}
-      style={{}}
-    >
-      <ReactMarkdown
-        components={{
-          code(props) {
-            const { children, className, ...rest } = props;
-            const match = /language-(\w+)/.exec(className || "");
-            return match ? (
-              // eslint-disable-next-line
-              // @ts-ignore
-              <SyntaxHighlighter
-                {...rest}
-                PreTag="div"
-                customStyle={{
-                  overflowY: "scroll",
-                }}
-                children={String(children).replace(/\n$/, "")}
-                language={match[1]}
-                style={{
-                  ...atomDark,
-                }}
-              />
-            ) : (
-              <code {...rest} className={className}>
-                {children}
-              </code>
-            );
-          },
-        }}
-      >
-        {/* {markdownText.substring(0, visibleLength)} */}
-        {markdownText}
-      </ReactMarkdown>
-    </div>
+    <>
+      <div className={cls("w-[70vw] prose prose-invert", styles.markdown)}>
+        <ReactMarkdown
+          components={{
+            code(props) {
+              const { children, className, ...rest } = props;
+              const match = /language-(\w+)/.exec(className || "");
+              return match ? (
+                // eslint-disable-next-line
+                // @ts-ignore
+                <SyntaxHighlighter
+                  {...rest}
+                  PreTag="div"
+                  customStyle={{
+                    overflowY: "scroll",
+                  }}
+                  children={String(children).replace(/\n$/, "")}
+                  language={match[1]}
+                  style={{
+                    ...atomDark,
+                  }}
+                />
+              ) : (
+                <code {...rest} className={className}>
+                  {children}
+                </code>
+              );
+            },
+          }}
+        >
+          {/* {markdownText.substring(0, visibleLength)} */}
+          {markdownText}
+        </ReactMarkdown>
+      </div>
+    </>
   );
 };
 export default TypingMarkdown;

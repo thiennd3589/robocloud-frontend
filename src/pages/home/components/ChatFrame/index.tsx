@@ -30,7 +30,7 @@ const ChatFrame = () => {
         {realData?.map((chat, index) => (
           <Message key={chat?.id ?? index} chat={chat} />
         ))}
-        <div ref={chatRef}></div>
+        <div ref={chatRef} className={"h-[30vh]"}></div>
       </div>
     </>
   );

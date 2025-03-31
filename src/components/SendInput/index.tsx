@@ -12,15 +12,22 @@ const SendInput = () => {
   const [inputValue, setInputValue] = useState("");
   const handleSendMessage = useHandleSendMessage();
   const createConversation = useCreateConversation();
-
+  const [loading, setLoading] = useState(false);
   const onSubmit = async () => {
-    chatRef.current?.scrollIntoView();
-    if (isAuthenticated && !selectedConversation.id) {
-      await createConversation(inputValue, inputValue);
-    } else {
-      await handleSendMessage(inputValue, selectedConversation.id);
+    setLoading(true);
+    try {
+      chatRef.current?.scrollIntoView();
+      setInputValue("");
+      if (isAuthenticated && !selectedConversation.id) {
+        await createConversation(inputValue, inputValue);
+      } else {
+        await handleSendMessage(inputValue, selectedConversation.id);
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
-    setInputValue("");
   };
 
   return (
@@ -33,6 +40,7 @@ const SendInput = () => {
           onKeyDown={(e) => e.key === "Enter" && onSubmit()}
           className="flex-1 p-2 bg-gray-800 text-white rounded-l-lg focus:outline-none"
           placeholder="Type a message..."
+          disabled={loading}
         />
         <button
           onClick={onSubmit}

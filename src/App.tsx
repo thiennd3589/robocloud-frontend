@@ -5,6 +5,7 @@ import AuthProvider from "./auth/provider";
 import { ConfigProvider, notification, theme } from "antd";
 import NotificationProvider from "./notification/provider";
 import ConversationProvider from "./conversation/provider";
+import USBPortProvider from "./usb-port/provider";
 
 function App() {
   const [_api, contextHolder] = notification.useNotification();
@@ -23,12 +24,14 @@ function App() {
       <NotificationProvider>
         <AuthProvider>
           <ConversationProvider>
-            <MainLayout>
-              <Routes>
-                <Route path="/" element={<Home />} />
-              </Routes>
-              {contextHolder}
-            </MainLayout>
+            <USBPortProvider>
+              <MainLayout>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                </Routes>
+                {contextHolder}
+              </MainLayout>
+            </USBPortProvider>
           </ConversationProvider>
         </AuthProvider>
       </NotificationProvider>
