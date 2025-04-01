@@ -52,6 +52,8 @@ const LoginPopup = ({
       open={visible}
       onCancel={onClose}
       centered
+      closable={false}
+      maskClosable={false}
       className="[&_.ant-modal-content]:bg-gray-800 [&_.ant-modal-content]:p-0"
     >
       <div className="relative">

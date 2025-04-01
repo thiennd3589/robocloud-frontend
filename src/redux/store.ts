@@ -4,6 +4,7 @@ import authReducer from "./redux-auth";
 import { conversationApi } from "../services/conversation";
 import { privateChatApi } from "../services/private-chat";
 import { userApi } from "../services/user";
+import logReducer from "./logging";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     [conversationApi.reducerPath]: conversationApi.reducer,
     [privateChatApi.reducerPath]: privateChatApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
+    logging: logReducer,
     auth: authReducer,
   },
   middleware(getDefaultMiddleware) {

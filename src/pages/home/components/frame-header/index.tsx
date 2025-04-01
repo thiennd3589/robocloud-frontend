@@ -26,7 +26,9 @@ const FrameHeader = () => {
         <div className="w-18 h-18">
           <img src={logo} className="w-full h-full" />
         </div>
-        <h1>{selectedConversation?.title ?? "Đoạn chat mới"}</h1>
+        <h1 className="line-clamp-1">
+          {selectedConversation?.title ?? "Đoạn chat mới"}
+        </h1>
       </div>
       <div className={styles["action"]}>
         <SelectUsbPort />

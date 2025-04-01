@@ -26,7 +26,7 @@ const MainLayout = (props: PropsWithChildren) => {
         chatRef,
       }}
     >
-      <Layout style={{ minHeight: "100vh" }}>
+      <Layout style={{ height: "100vh" }}>
         <Sider
           collapsed={collapsed}
           collapsible

@@ -4,9 +4,18 @@
   max-height: 100vh;
   overflow-y: scroll;
 
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   :global {
     .ant-layout-sider-zero-width-trigger {
       display: none;
+    }
+
+    .ant-layout-sider-children {
+      display: flex;
+      flex-direction: column;
     }
   }
 }
