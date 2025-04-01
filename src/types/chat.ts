@@ -4,6 +4,7 @@ export enum ChatRole {
 }
 
 export type Chat = {
+  compiled?: boolean;
   id?: string;
   content: {
     parts: Array<{

@@ -3,13 +3,15 @@ import { doRequest } from "../../http-client/request";
 import { useNotification } from "../../notification/hooks/use-notification";
 import { useContext, useState } from "react";
 import { USBPortContext } from "../../usb-port/context";
-
+import { uploadCode } from "../../lib/import-code";
 const ImportCodeBtn = ({
   messageId,
   className,
+  disabled,
 }: {
   messageId: string;
   className?: string;
+  disabled?: boolean;
 }) => {
   const { port } = useContext(USBPortContext);
   const [loading, setLoading] = useState(false);
@@ -31,15 +33,13 @@ const ImportCodeBtn = ({
 
       const data = res?.data;
       const { hex: hexString } = data;
-      const hexLines = hexString.trim().split("\n");
-
-      await port.open({ baudRate: 115200 });
-      const writer = port.writable.getWriter();
-
-      console.log("====START=====");
-      const fullHexData = hexLines.join("\r\n");
-      await writer.write(new TextEncoder().encode(fullHexData));
-      console.log("========END======");
+      // const hexLines = hexString.trim().split("\n");
+      await uploadCode(
+        port,
+        hexString,
+        () => noti?.success({ message: "Nạp code thành công!" }),
+        () => noti?.error({ message: "Nạp code thất bại!" })
+      );
     } catch (_error) {
       console.log(_error);
       noti?.error({ message: "Đã có lỗi xảy ra." });
@@ -54,8 +54,9 @@ const ImportCodeBtn = ({
       className={className}
       onClick={onClick}
       loading={loading}
+      disabled={disabled}
     >
-      Nạp code
+      {!disabled ? "Nạp code" : "Code chưa được compile"}
     </Button>
   );
 };
