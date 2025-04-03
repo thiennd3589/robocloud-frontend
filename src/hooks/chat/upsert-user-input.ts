@@ -1,7 +1,7 @@
 import { useAppDispatch } from "../../redux/hooks";
 import { privateChatApi } from "../../services/private-chat";
 import { publicChatApi } from "../../services/public-chat";
-import { ChatRole } from "../../types/chat";
+import { ChatRole, ChatType } from "../../types/chat";
 
 export const useUpsertUserInput = () => {
   const dispatch = useAppDispatch();
@@ -18,6 +18,7 @@ export const useUpsertUserInput = () => {
                 parts: [{ text: input }],
               },
               role: ChatRole.USER,
+              type: ChatType.QUESTION,
             });
           }
         )
@@ -33,6 +34,7 @@ export const useUpsertUserInput = () => {
                 parts: [{ text: input }],
               },
               role: ChatRole.USER,
+              type: ChatType.QUESTION,
             });
           }
         )

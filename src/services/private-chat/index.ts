@@ -21,8 +21,8 @@ export const privateChatApi = createApi({
       query: (conversationId) => ({ url: `/${conversationId}` }),
     }),
     addPrivateChat: builder.mutation<
-      Array<Chat>,
-      { input: string; conversationId: string }
+      Chat,
+      { input: string; conversationId: string; isGenerateCode?: boolean }
     >({
       query: (body) => {
         return {

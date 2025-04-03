@@ -5,11 +5,11 @@ export const useSendMessage = () => {
   const [addPublicChat] = useAddPublicChatMutation();
   const [addPrivateChat] = useAddPrivateChatMutation();
 
-  return (input: string, conversationId?: string) => {
+  return (input: string, conversationId?: string, isGenerateCode?: boolean) => {
     if (!conversationId) {
       return addPublicChat({ input });
     }
 
-    return addPrivateChat({ input, conversationId });
+    return addPrivateChat({ input, conversationId, isGenerateCode });
   };
 };

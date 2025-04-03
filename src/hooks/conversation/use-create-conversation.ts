@@ -13,7 +13,7 @@ export const useCreateConversation = () => {
     const { data } = await trigger({ title: trimTitle });
     if (data) {
       setSelectedConversation(data);
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       await sendMessage(trimInput, data.id);
     }
   };

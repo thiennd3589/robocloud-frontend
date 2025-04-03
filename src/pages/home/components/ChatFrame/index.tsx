@@ -5,6 +5,8 @@ import { useGetPublicChatQuery } from "../../../../services/public-chat";
 import ConversationContext from "../../../../conversation/context";
 import { useIsAuthenticated } from "../../../../auth/hooks/use-is-authenticated";
 import LayoutContext from "../../../../layout/main-layout/context";
+import GenCodeButton from "../../../../components/gen-code-btn";
+import { ChatRole } from "../../../../types/chat";
 
 const ChatFrame = () => {
   const { selectedConversation } = useContext(ConversationContext);
@@ -30,6 +32,19 @@ const ChatFrame = () => {
         {realData?.map((chat, index) => (
           <Message key={chat?.id ?? index} chat={chat} />
         ))}
+        {realData &&
+          realData?.length > 1 &&
+          realData[realData.length - 1].role === ChatRole.MODEL &&
+          selectedConversation.id && (
+            <GenCodeButton
+              style={{
+                alignSelf: "flex-end",
+              }}
+              className="mx-6"
+              conversationId={selectedConversation.id}
+              lastMessage={realData[realData.length - 1]}
+            />
+          )}
         <div ref={chatRef} className={"h-[30vh]"}></div>
       </div>
     </>

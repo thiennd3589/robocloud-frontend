@@ -21,20 +21,6 @@ const ImportCodeBtn = ({
   const [loading, setLoading] = useState(false);
   //115200
   const noti = useNotification();
-  // const interval = useRef<any>(null);
-  // const [percent, setPercent] = useState(0);
-
-  // useEffect(() => {
-  //   if (percent > 0) {
-  //     dispatch(
-  //       addLogs({ type: "success", text: `=== Đã nạp ${percent}% ===` })
-  //     );
-
-  //     if (percent >= 95) {
-  //       dispatch(addLogs({ type: "success", text: `=== Đang xử lý... ===` }));
-  //     }
-  //   }
-  // }, [percent]);
 
   const onClick = async () => {
     try {
@@ -59,27 +45,14 @@ const ImportCodeBtn = ({
           dispatch(
             addLogs({ type: "success", text: `=== Bắt đầu nạp code ===` })
           );
-          // interval.current = setInterval(() => {
-          //   setPercent((prev) => {
-          //     const data = prev + 5;
-          //     if (data > 95) {
-          //       clearInterval(interval.current);
-          //       return prev;
-          //     }
-          //     return data;
-          //   });
-          // }, 1200);
         },
         () => {
-          // if (interval.current) clearInterval(interval.current);
           dispatch(
             addLogs({ type: "success", text: "=== Nạp code thành công ===" })
           );
           noti?.success({ message: "Nạp code thành công!" });
         },
         () => {
-          // console.log(interval);
-          // if (interval.current) clearInterval(interval.current);
           dispatch(
             addLogs({ type: "error", text: "=== Nạp code thất bại ===" })
           );

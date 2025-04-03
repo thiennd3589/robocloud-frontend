@@ -4,11 +4,14 @@ type LoggingType = {
   logs: {
     type: "error" | "success";
     text: string;
-  }[];
+  };
 };
 
 const initialState: LoggingType = {
-  logs: [],
+  logs: {
+    text: "",
+    type: "success",
+  },
 };
 
 const loggingSlice = createSlice({
@@ -16,10 +19,13 @@ const loggingSlice = createSlice({
   initialState,
   reducers: {
     removeLogs: (state) => {
-      state.logs = [];
+      state.logs = {
+        text: "",
+        type: "success",
+      };
     },
     addLogs: (state, { payload }) => {
-      state.logs = [...state.logs, payload];
+      state.logs = payload;
     },
   },
 });

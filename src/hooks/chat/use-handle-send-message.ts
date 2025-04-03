@@ -6,14 +6,24 @@ export const useHandleSendMessage = () => {
   const upsertUserInput = useUpsertUserInput();
   const upsertModelResponse = useUpsertModelResponse();
   const sendMessage = useSendMessage();
-  return async (input: string, conversationId?: string) => {
+  return async (
+    input: string,
+    conversationId?: string,
+    isGenerateCode?: boolean
+  ) => {
     const trimValue = input.trim();
     if (!trimValue) return;
 
-    upsertUserInput(trimValue, conversationId);
+    if (!isGenerateCode) upsertUserInput(trimValue, conversationId);
 
-    const { data } = await sendMessage(trimValue, conversationId);
+    const { data } = await sendMessage(
+      trimValue,
+      conversationId,
+      isGenerateCode
+    );
 
     if (data) upsertModelResponse(data, conversationId);
+
+    return data;
   };
 };
