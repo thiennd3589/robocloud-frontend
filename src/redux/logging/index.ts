@@ -1,17 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type LoggingType = {
-  logs: {
+  logs: Array<{
     type: "error" | "success";
     text: string;
-  };
+  }>;
 };
 
 const initialState: LoggingType = {
-  logs: {
-    text: "",
-    type: "success",
-  },
+  logs: [
+    {
+      text: "",
+      type: "success",
+    },
+  ],
 };
 
 const loggingSlice = createSlice({
@@ -19,13 +21,10 @@ const loggingSlice = createSlice({
   initialState,
   reducers: {
     removeLogs: (state) => {
-      state.logs = {
-        text: "",
-        type: "success",
-      };
+      state.logs = [];
     },
     addLogs: (state, { payload }) => {
-      state.logs = payload;
+      state.logs = [...state.logs, payload];
     },
   },
 });

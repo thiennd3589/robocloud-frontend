@@ -78,17 +78,78 @@ const GenCodeButton = ({
   };
 
   const onUploadCode = async () => {
+    const checked = checkPortSelect();
+    if (!checked) return;
+
     dispatchLog({ type: "success", text: "=== Đang tải code ===" });
     const res = await doRequest({
       url: `/import-code/${conversationId}`,
       authen: true,
-      onGotError() {
+      onGotError(error) {
+        if (error?.response?.data.error.message) {
+          dispatchLog({
+            type: "error",
+            text: error.response.data.error.message,
+          });
+        }
+        dispatchLog({ type: "error", text: "=== Tải code thất bại ===" });
         throw Error(GenCodeState.COMPILING_ERROR);
       },
     });
 
     const data = res?.data;
     const { hex: hexString } = data;
+
+    // let currentReader = reader;
+    // let currentWriter = writer;
+
+    // console.log("fafnwq", checkPortOpen(port));
+    // const isPortOpen = await checkPortOpen(port);
+    // if (!isPortOpen) {
+    //   console.log("dmmmm");
+    //   await port.open({
+    //     baudRate: 115200,
+    //   });
+    // }
+
+    // // await port.open({
+    // //   baudRate: 115200,
+    // // });
+
+    // console.log("aaaa", {
+    //   currentReader,
+    //   currentWriter,
+    // });
+
+    // console.log(port?.readable?.locked, port?.writable?.locked);
+
+    // try {
+    //   if (currentReader && port?.readable?.locked) {
+    //     currentReader.releaseLock();
+    //   }
+
+    //   if (currentWriter && port?.writable?.locked) {
+    //     currentWriter.releaseLock();
+    //   }
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+    // console.log({ port });
+    // const newReader = port.readable.getReader();
+    // console.log({ newReader });
+    // setReader(newReader);
+    // currentReader = newReader;
+
+    // const newWriter = port.writable.getWriter();
+    // console.log({ newWriter });
+    // setWriter(newWriter);
+    // currentWriter = newWriter;
+
+    // console.log({
+    //   currentReader,
+    //   currentWriter,
+    // });
 
     await uploadCode(
       port,
@@ -98,15 +159,30 @@ const GenCodeButton = ({
       },
       () => {
         dispatchLog({ type: "success", text: "=== Nạp code thành công ===" });
+        // port.close();
         noti?.success({ message: "Nạp code thành công!" });
       },
-      () => {
+      (error: any) => {
+        console.log("porn", error);
+        dispatchLog({ type: "error", text: error?.message });
         dispatchLog({ type: "error", text: "=== Nạp code thất bại ===" });
         noti?.error({ message: "Nạp code thất bại!" });
+        // port.close();
         throw Error(GenCodeState.COMPILING_ERROR);
       }
     );
   };
+
+  // const checkPortOpen = async (port: any) => {
+  //   try {
+  //     const signal = await port.getSignals();
+  //     console.log({ signal });
+  //     return true;
+  //   } catch (error) {
+  //     console.log(error);
+  //     return false;
+  //   }
+  // };
 
   const dispatchLog = ({
     text,
@@ -148,7 +224,8 @@ const GenCodeButton = ({
     }
   };
 
-  if (!lastMessage?.canCompiled) return null;
+  if (!lastMessage?.canCompiled && lastMessage?.type === ChatType.QUESTION)
+    return null;
 
   return (
     <div>
@@ -170,14 +247,15 @@ const GenCodeButton = ({
           type="primary"
           loading={loading}
           onClick={async () => {
-            const checked = checkPortSelect();
-            if (!checked) return;
+            // const checked = checkPortSelect();
+            // if (!checked) return;
 
             setLoading(true);
             try {
               await onUploadCode();
             } catch (_e) {
-              console.log(_e);
+              console.log("quatvn", _e);
+              dispatchLog({ type: "error", text: "=== Nạp code thất bại ===" });
               setGenCodeState(GenCodeState.COMPILING_ERROR);
             } finally {
               setLoading(false);

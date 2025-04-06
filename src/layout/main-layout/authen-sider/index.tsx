@@ -3,11 +3,13 @@ import { useGetConversationQuery } from "../../../services/conversation";
 import ConversationItem from "./conversation-item";
 import styles from "./styles.module.scss";
 import { RootState } from "../../../redux/store";
-import { useEffect, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import DisplayGif from "./display-gif";
 import classNames from "classnames";
+import LayoutContext from "../context";
 
 const AuthenSider = () => {
+  const { collapsed } = useContext(LayoutContext);
   const logs = useSelector((state: RootState) => state.logging.logs);
   const { data } = useGetConversationQuery(undefined);
   const ref = useRef<HTMLDivElement>(null);
@@ -22,7 +24,7 @@ const AuthenSider = () => {
     <div className="flex flex-col px-[5px] justify-between flex-1 pb-[5px] max-h-[100%] gap-2">
       <div
         className={classNames(
-          "flex flex-col flex-2 max-h-[45%] overflow-scroll",
+          "flex flex-col flex-2 overflow-scroll",
           styles["conversation-list"]
         )}
       >
@@ -33,15 +35,21 @@ const AuthenSider = () => {
           <ConversationItem key={index} {...{ ...conv, index }} />
         ))}
       </div>
-      <div className="flex flex-col gap-3 justify-end fixed bottom-1.5 max-w-[290px]">
-        <DisplayGif />
-        <div className={styles["monitor-frame"]}>
-          <div className={styles["monitor-screen"]}>
-            <p className={styles[logs.type]}>{logs.text}</p>
-            <div ref={ref}></div>
+      {!collapsed && (
+        <div className="flex flex-col gap-3 justify-end fixed bottom-1.5 w-[290px]">
+          <div className={styles["monitor-frame"]}>
+            <div className={styles["monitor-screen"]}>
+              {logs.map((log, index) => (
+                <p key={index} className={styles[log.type]}>
+                  {log.text}
+                </p>
+              ))}
+              <div ref={ref}></div>
+            </div>
           </div>
+          <DisplayGif />
         </div>
-      </div>
+      )}
     </div>
   );
 };

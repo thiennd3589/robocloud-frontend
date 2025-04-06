@@ -71,7 +71,7 @@ const DisplayGif = () => {
   }, []);
 
   return (
-    <div className="w-full aspect-square">
+    <div className="w-full aspect-square overflow-hidden">
       <img src={gif} className="w-full h-full" />
     </div>
   );

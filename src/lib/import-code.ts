@@ -18,16 +18,21 @@ export const loadCode = async (
   hexString: string,
   onStart?: () => void,
   onSuccess?: () => void,
-  onError?: () => void
+  onError?: (_e?: any) => void
 ) => {
   try {
     if (onStart) onStart();
     const formattedHex = hexString.replace(/\\n/g, "\n");
     const hexBuffer = avrbro.parseHex(formattedHex);
 
-    await port.open({
-      baudRate: 115200,
-    });
+    try {
+      await port.open({
+        baudRate: 115200,
+      });
+    } catch (_error) {
+      console.log(_error);
+      console.log("111");
+    }
 
     const serial = {
       port,
@@ -55,8 +60,8 @@ export const loadCode = async (
       console.log("Operation canceled by user");
     }
   } catch (_e) {
-    if (onError) onError();
+    if (onError) onError(_e);
   }
 };
 
-export const uploadCode = withTimeout(loadCode, 1000 * 60 * 3);
+export const uploadCode = withTimeout(loadCode, 1000 * 60 * 10);
